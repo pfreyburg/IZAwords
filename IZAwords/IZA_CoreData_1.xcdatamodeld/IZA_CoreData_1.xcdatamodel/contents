@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Identification" representedClassName="Identification" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="idCode" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Lekce" representedClassName="Lekce" parentEntity="Identification" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Slovicko" representedClassName="Slovicko" parentEntity="Identification" syncable="YES" codeGenerationType="class">
+        <attribute name="cz" optional="YES" attributeType="String"/>
+        <attribute name="en" optional="YES" attributeType="String"/>
+        <relationship name="lekce" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lekce"/>
+    </entity>
+    <elements>
+        <element name="Identification" positionX="-86.04296875" positionY="-116.7734375" width="128" height="73"/>
+        <element name="Lekce" positionX="-86.30078125" positionY="27.3828125" width="128" height="58"/>
+        <element name="Slovicko" positionX="75.109375" positionY="-114.9453125" width="128" height="88"/>
+    </elements>
+</model>
