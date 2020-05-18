@@ -27,36 +27,6 @@ extension Identification {
 
 // --------------------------------------------------------------------
 //
-let pejsek = UIImage(named:"pejsek.jpg")
-
-// --------------------------------------------------------------------
-//
-extension Car : MHFetchable {
-    // ----------------------------------------------------------------
-    //
-    var presentType: String { (brand ?? "??") + "-" + (type ?? "??") }
-    var presentSPZ: String { numberplate ?? "not-set" }
-    var presentPic: UIImage { pejsek! }
-    
-    //
-    public static var frcBasicKey: AttributeName { "numberplate" }
-    
-    //
-    override public var description: String { presentSPZ }
-    
-    // ----------------------------------------------------------------
-    //
-    static let _hiredPredicate = NSPredicate(format: "currentHire != nil")
-    static let _notHiredPredicate = NSPredicate(format: "currentHire = nil")
-}
-
-
-// --------------------------------------------------------------------
-//
-extension Customer : MHFetchable {
-    //
-    public static var frcBasicKey: AttributeName { "name" }
-}
 
 extension Lekce : MHFetchable {
     public static var frcBasicKey: AttributeName { "name" }

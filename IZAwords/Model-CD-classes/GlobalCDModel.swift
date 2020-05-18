@@ -21,20 +21,6 @@ import CoreData
 // Zasada 3: ...
 extension NSManagedObjectContext {
     // ----------------------------------------------------------------
-    // alokace MO a nejake zakladni nastaveni
-    func allocCar() -> Car {
-        // ted vznika managed-object, FRCy budou reagovat...
-        let _car = Car(initialized: self)
-        
-        // ted SMIME predpokladat, ze kms je vzdy != nil
-        _car.kms = 0
-        
-        //
-        _car.numberplate = "not-assigned-yet"
-        
-        //
-        return _car
-    }
     
     // ----------------------------------------------------------------
     //
@@ -62,62 +48,4 @@ extension NSManagedObjectContext {
              return _slovicko
          }
     
-    // ----------------------------------------------------------------
-    //
-    func allocHire(car: Car, customer: Customer) -> Hire {
-        //
-        let _hire = Hire(context: self)
-        
-        // bez techto atributu objekt nedava prilis smysl
-        _hire.car = car
-        _hire.customer = customer
-        
-        //
-        return _hire
-    }
-    
-    // ----------------------------------------------------------------
-    // operace zabrani auta. Opet se hodi uvaha o vice-vlaknovosti
-    // 1) bud jedu v MainThread, nebo 2) zamykam
-    func hireACar(car: Car, by: Customer) -> Hire? {
-        // pokud je auto zabrano, asi nekdo udelal chybu v UI
-        if car.currentHire != nil { return nil }
-        
-        // ...
-        let _hire = allocHire(car: car, customer: by)
-        
-        // ...
-        _hire.dateStarting = Date()
-        _hire.kmsStarting = car.kms
-        
-        // modifikuji "car", nejaky FRC bude reagovat
-        car.currentHire = _hire
-        
-        //
-        return car.currentHire
-    }
-    
-    // ----------------------------------------------------------------
-    // vrat auto...
-    func dropACar(car: Car, hired: Hire) -> Bool {
-        // kontrola konzistence pokynu
-        assert(car.currentHire == hired)
-        
-        //
-        hired.dateEnding = Date()
-        
-        // kolik se asi najelo km...
-        let _hiredSec = hired.dateStarting!.distance(to: hired.dateEnding!)
-        let _kms = Int32(_hiredSec * 1)
-        
-        //
-        hired.kmsEnding = hired.kmsStarting + _kms
-        
-        // zapis do objektu car, FRCy...
-        car.currentHire = nil
-        car.kms = hired.kmsEnding
-        
-        //
-        return true
-    }
 }
